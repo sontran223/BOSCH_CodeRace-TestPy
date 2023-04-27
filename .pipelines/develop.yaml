@@ -29,6 +29,4 @@ pool:
 stages:
 
 - template: stages/build_sw.yaml
-  parameters:
-    ARTIFACTORY_URL: sdv-generic-develop-local/main
 
