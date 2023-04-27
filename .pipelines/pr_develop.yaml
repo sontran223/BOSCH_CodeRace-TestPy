@@ -1,36 +1,19 @@
-#=============================================================================
-#  C O P Y R I G H T
-#-----------------------------------------------------------------------------
-# @copyright (c) 2023 by Robert Bosch GmbH. All rights reserved.
-#
-#  The reproduction, distribution and utilization of this file as
-#  well as the communication of its contents to others without express
-#  authorization is prohibited. Offenders will be held liable for the
-#  payment of damages. All rights reserved in the event of the grant
-#  of a patent, utility model or design.
-#
-#=============================================================================
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
-
-# Pull Request Triggers (triggers the pipeline whenever a pull request is opened with the specified target branches)
-trigger: none
-
-pr:
-  branches:
-    include:
-    - main
-  paths:
-    exclude: # file paths which will not trigger a build
-    - README.md
-    - .gitignore
-
-#global variable
-variables:
-  - template: vars/vars.yml
+trigger:
+- main
 
 pool:
   vmImage: ubuntu-latest
 
-stages:
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
 
-- template: stages/build_sw.yaml
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
