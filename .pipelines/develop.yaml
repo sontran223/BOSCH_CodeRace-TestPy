@@ -21,7 +21,6 @@ pr: none
 #global variable
 variables:
   - template: vars/vars.yml
-  - group: artifactory-user-credentials
 
 pool:
   name: "vmss-ubuntu-2004"
