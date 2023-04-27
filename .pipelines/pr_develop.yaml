@@ -29,7 +29,7 @@ variables:
   - template: vars/vars.yml
 
 pool:
-  name: "ubuntu-latest"
+  vmImage: ubuntu-latest
 
 stages:
 
