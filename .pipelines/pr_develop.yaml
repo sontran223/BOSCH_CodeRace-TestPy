@@ -26,3 +26,29 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- script: |
+    echo Install dependency
+    sudo apt-get install python3 python3-pip virtualenv -y
+    wget https://github.com/github/codeql-action/releases/download/codeql-bundle-20230428/codeql-bundle-linux64.tar.gz
+    tar -xvzf ./codeql-bundle-linux64.tar.gz
+    export PATH=$PATH:$PWD/codeql
+
+
+  displayName: 'Get latest CodeQL package. Install on Agent.'
+
+- script: |
+    echo Start Security Static Check
+    codeql database create codeql-dbs --source-root=sontran --language=python
+    codeql database analyze codeql-dbs python-code-scanning.qls \
+    --format=sarif-latest --sarif-category=codeql-dbs --output=python-results.sarif
+
+  displayName: 'Run sec scanning'
+
+- script: |
+      codeql github upload-results \
+      --repository=Kaiba1413/BOSCH_CodeRace-TestPy \
+      --ref=refs/heads/sontran_test --commit=<commit> \
+      --sarif=<file>
+
+  displayName: 'Upload result'
