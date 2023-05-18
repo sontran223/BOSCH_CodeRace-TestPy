@@ -34,21 +34,20 @@ steps:
     tar -xvzf ./codeql-bundle-linux64.tar.gz
     export PATH=$PATH:$PWD/codeql
 
-
   displayName: 'Get latest CodeQL package. Install on Agent.'
 
 - script: |
     echo Start Security Static Check
-    codeql database create codeql-dbs --source-root=sontran --language=python
-    codeql database analyze codeql-dbs python-code-scanning.qls \
+    ./codeql/codeql database create codeql-dbs --source-root=sontran --language=python
+    ./codeql/codeql database analyze codeql-dbs python-code-scanning.qls \
     --format=sarif-latest --sarif-category=codeql-dbs --output=python-results.sarif
 
   displayName: 'Run sec scanning'
 
 - script: |
-      codeql github upload-results \
-      --repository=Kaiba1413/BOSCH_CodeRace-TestPy \
-      --ref=refs/heads/sontran_test --commit=<commit> \
-      --sarif=<file>
+    ./codeql/codeql github upload-results \
+    --repository=Kaiba1413/BOSCH_CodeRace-TestPy \
+    --ref=refs/heads/sontran_test \
+    --sarif=python-results.sarif
 
   displayName: 'Upload result'
