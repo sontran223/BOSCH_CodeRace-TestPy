@@ -45,9 +45,10 @@ steps:
   displayName: 'Run sec scanning'
 
 - script: |
-    ./codeql/codeql github upload-results \
+    export UPLOAD_TOKEN=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
+    echo "$UPLOAD_TOKEN" | ./codeql/codeql github upload-results \
     --repository=Kaiba1413/BOSCH_CodeRace-TestPy \
     --ref=refs/heads/sontran_test \
-    --sarif=python-results.sarif
+    --sarif=python-results.sarif --github-auth-stdin
 
   displayName: 'Upload result'
